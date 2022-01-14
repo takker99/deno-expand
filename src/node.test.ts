@@ -2,6 +2,22 @@
 import { getNode, Node, Trans } from "./node.ts";
 import { assertEquals, assertStrictEquals } from "./deps.ts";
 
+Deno.test("Node", async (t) => {
+  await t.step("Check ID", () => {
+    const n0 = new Node();
+    const n1 = new Node();
+    assertEquals(n0.id, 0);
+    assertEquals(n1.id, 1);
+  });
+
+  await t.step("Get a node by id", () => {
+    for (let i = 0; i < 10; i++) {
+      const node = new Node();
+      assertStrictEquals(getNode(node.id), node);
+    }
+  });
+});
+
 Deno.test("Trans", async (t) => {
   const node = new Node();
   await t.step("Trans.str", async (t) => {
@@ -44,20 +60,4 @@ Deno.test("Trans", async (t) => {
       assertStrictEquals(new Trans("pattern", n).dest, n);
     },
   );
-});
-
-Deno.test("Node", async (t) => {
-  await t.step("Check ID", () => {
-    const n0 = new Node();
-    const n1 = new Node();
-    assertEquals(n0.id, 0);
-    assertEquals(n1.id, 1);
-  });
-
-  await t.step("Get a node by id", () => {
-    for (let i = 0; i < 10; i++) {
-      const node = new Node();
-      assertStrictEquals(getNode(node.id), node);
-    }
-  });
 });
