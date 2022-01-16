@@ -75,3 +75,8 @@ export class Node {
 export function getNode(id: number): Node | undefined {
   return nodes[id];
 }
+
+/** for debug */
+export function resetId() {
+  globalId = 0;
+}
